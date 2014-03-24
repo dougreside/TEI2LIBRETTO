@@ -6,11 +6,9 @@
 	xmlstrings = {};
 	manifest = '<package xmlns="http://www.idpf.org/2007/opf" prefix="cc: http://creativecommons.org/ns# rendition: http://www.idpf.org/vocab/rendition/#" version="3.0" unique-identifier="bookid" id="package">';
 	otherFiles = [];
-	 var clientId = '523274043001-sc3icts9ll2p7a2tt4p79t84rigdjohd.apps.googleusercontent.com';
+	
 
-      var apiKey = 'AIzaSyAN-0rsH58RRS8VMQP2gvNowfI9xVKZxgo';
-
-      var scopes = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/drive.file','https://spreadsheets.google.com/feeds'];
+    var scopes = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/drive.file','https://spreadsheets.google.com/feeds'];
 	xml = [];
 	xsl=[];
 	xslt = "";
