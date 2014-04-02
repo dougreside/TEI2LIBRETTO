@@ -88,18 +88,18 @@
 				$("#finishRow").append("<div><span id='remaining'>"+allchecks+" files remaining.</span></div>");	
 	  		
   				$(".chapterSelect:checked").each(function(key,val){
-  				bigid = $(val).parent().attr("id");
-	  			shortid = bigid.substring(bigid.indexOf("___")+3);
-	  			head = bigid.substring(0,bigid.indexOf("___"));
+  				var bigid = $(val).parent().attr("id");
+	  			var shortid = bigid.substring(bigid.indexOf("___")+3);
+	  			var head = bigid.substring(0,bigid.indexOf("___"));
   				
-	  			xmlObj = xmlstrings[head];
-	  			xmlD = xmlObj["dom"];
+	  			var xmlObj = xmlstrings[head];
+	  			var xmlD = xmlObj["dom"];
 	  			
-	  			chapter = $(xmlD).find("#"+shortid);
-	  			headtitle = chapter.find("head").eq(0).text();
+	  			var chapter = $(xmlD).find("#"+shortid);
+	  			var headtitle = chapter.find("head").eq(0).text();
 	  			
-	  			frag =xsltp.transformToFragment(chapter[0]);
-	  			sfrag = new XMLSerializer().serializeToString( frag );
+	  			var frag =xsltp.transformToFragment(chapter[0]);
+	  			var sfrag = new XMLSerializer().serializeToString( frag );
 	  			
 	  			
 	  			if (spine[head]==null){
@@ -252,7 +252,7 @@
       			$("#selectChapters").addClass("levelSelected");
       });
      
-     $("#finishUp").click(function(){
+     $("#finishUp,#finishTree").click(function(){
       	 	$("#chapterLevel").hide();
       	$("#syncLevel").hide();
       	$("#finishRow").show();
@@ -264,15 +264,16 @@
      $("#loadSelected").click(function(){
      loadSelected();
      });
-	  $("#SearchBox").change(function(){
-	  	$("#introInstructions").hide();
+	  $("#GoogleURL").change(function(){
+
 	  	par = $(this).val();
 	  	par = par.substring(par.lastIndexOf("/")+1);
 	  	
 	  	makeApiCall(par);
-	  	 $("#addFileBox").show();
+	  	
 	  });
 	    $("#treeGo").click(function(){
+	    $("#finishTree").show();
 	  selectTagsFromPath($("#breakTag").val());
 	  });
 	  $("#testButton").click(function(){
@@ -722,6 +723,10 @@ function getFolderContents(tarpar,parName){
           request.execute(function(resp) {
           //  console.log(resp);
             items = resp.items;
+            if (items){
+             $("#addFileBox").show();
+            	  	$("#introInstructions").hide();
+	  	$("#GoogleDriveLoad").hide();
 			for (n=0;n<items.length;n++){
 				item = items[n];
 				title = item.title;
@@ -751,7 +756,10 @@ function getFolderContents(tarpar,parName){
 			});
 			$(".xslcheck").eq(0).prop("checked",true);
 		//	loadAllXML();
-            
+            }
+            else{
+            alert("Error: Make sure you've signed in (click the \"Sign in\" button), and try again.");
+            }
           });
         });
       }
@@ -920,7 +928,7 @@ selected = $(cell);
  	// Add IDs
  	
  	addIds();
- 	$("#table").hide();
+ //	$("#table").hide();
  	$("body").off("keypress");
  	// Split into chapters
  	
